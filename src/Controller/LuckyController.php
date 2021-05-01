@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class LuckyController extends AbstractController
 {
     /**
-     * @Route("/lucky/{max}")
+     * @Route("/lucky/{max}", name="lucky_number")
      */
     public function number(int $max = 100): Response
     {
