@@ -9,29 +9,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
     /**
-     * This route has a greedy pattern and is defined first.
-     * 
-     * @Route("/blog/{id}", name="blog_show")
-     */
-    public function show(BlogPost $post): Response
-    {
-        // $slug will equal the dynamic part of the URL
-        // e.g. at /blog/yay-routing, then $slug='yay-routing'
-
-        // ...
-        return new Response(
-            "<html><body>Blog slug({$post->id})</body></html>"
-        );
-    }
-
-    /**
-     * @Route("/blog/{page<\d+>?1}", name="blog_list", priority=2)
+     * @Route("/blog/{page}", name="blog_list", defaults={"page": 1, "title": "Hello world!"})
      */
     public function list(int $page): Response
     {
         // ...
         return new Response(
             "<html><body>Blog list, page n.{$page}</body></html>"
+        );
+    }
+
+    /**
+     * This route has a greedy pattern and is defined first.
+     * 
+     * @Route("/blog/{slug}", name="blog_show")
+     */
+    public function show(string $slug): Response
+    {
+        // $slug will equal the dynamic part of the URL
+        // e.g. at /blog/yay-routing, then $slug='yay-routing'
+
+        // ...
+        return new Response(
+            "<html><body>Blog slug({$slug})</body></html>"
         );
     }
 }
