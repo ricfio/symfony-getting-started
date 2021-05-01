@@ -34,13 +34,12 @@ class BlogController extends AbstractController
         // use this to get all the available attributes (not only routing ones):
         $allAttributes = $request->attributes->all();
         
-        return new Response(
-            "<html><body>Blog list, page n.{$page}
-                <br>- routeName: {$routeName}
-                <br>- routeParameters: ".implode(",",$routeParameters)."
-                <br>- allAttributes: <pre>".var_export($allAttributes, true)."</pre>
-            </body></html>"
-        );
+        return $this->render('blog/list.html.twig', [
+            'page' => $page,
+            'routeName' => $routeName,
+            'routeParameters' => implode(",",$routeParameters),
+            'allAttributes' => var_export($allAttributes, true),
+        ]);
     }
 
     /**
