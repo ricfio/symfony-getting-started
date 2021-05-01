@@ -1,6 +1,12 @@
+{% set route_name = app.request.attributes.get('_route') %}
+{% set route_parameters = app.request.attributes.get('_route_params') %}
+
+{# use this to get all the available attributes (not only routing ones) #}
+{% set all_attributes = app.request.attributes.all %}
+
 Blog list, page n. {{ page }}
-<br>- routeName: {{ routeName }}
-<br>- routeParameters: {{ routeParameters }}
+<br>- routeName: {{ route_name }}
+<br>- routeParameters: {{ route_parameters|join(',') }}
 <br>- allAttributes: <pre>
-{{ allAttributes }}
+{{ dump(all_attributes) }}
 </pre>
