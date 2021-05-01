@@ -22,7 +22,18 @@ class DefaultController extends AbstractController
     {
         // ...
         return new Response(
-            '<html><body>contact</body></html>'
+            "<html><body>contact</body></html>"
         );
     }
+
+    /**
+     * @Route("/share/{token}", name="share", requirements={"token"=".+"})
+     */
+    public function share($token): Response
+    {
+        // ...
+        return new Response(
+            "<html><body>share:<br>- token: {$token}</body></html>"
+        );
+    }    
 }
