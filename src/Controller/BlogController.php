@@ -9,17 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
     /**
-     * @Route("/blog/{page<\d+>?1}", name="blog_list")
-     */
-    public function list(int $page): Response
-    {
-        // ...
-        return new Response(
-            "<html><body>Blog list, page n.{$page}</body></html>"
-        );
-    }
-
-    /**
+     * This route has a greedy pattern and is defined first.
+     * 
      * @Route("/blog/{slug}", name="blog_show")
      */
     public function show(string $slug): Response
@@ -30,6 +21,17 @@ class BlogController extends AbstractController
         // ...
         return new Response(
             "<html><body>Blog slug({$slug})</body></html>"
+        );
+    }
+
+    /**
+     * @Route("/blog/{page<\d+>?1}", name="blog_list", priority=2)
+     */
+    public function list(int $page): Response
+    {
+        // ...
+        return new Response(
+            "<html><body>Blog list, page n.{$page}</body></html>"
         );
     }
 }
