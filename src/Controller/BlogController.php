@@ -26,11 +26,20 @@ class BlogController extends AbstractController
     /**
      * @Route("/{page}", name="list", requirements={"page"="\d+"}, defaults={"page": 1, "title": "Hello world!"})
      */
-    public function list(int $page): Response
+    public function list(Request $request, int $page): Response
     {
-        // ...
+        $routeName = $request->attributes->get('_route');
+        $routeParameters = $request->attributes->get('_route_params');        
+
+        // use this to get all the available attributes (not only routing ones):
+        $allAttributes = $request->attributes->all();
+        
         return new Response(
-            "<html><body>Blog list, page n.{$page}</body></html>"
+            "<html><body>Blog list, page n.{$page}
+                <br>- routeName: {$routeName}
+                <br>- routeParameters: ".implode(",",$routeParameters)."
+                <br>- allAttributes: <pre>".var_export($allAttributes, true)."</pre>
+            </body></html>"
         );
     }
 
