@@ -3,30 +3,39 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
     /**
-     * @Route("/main", name="mobile_homepage", host="127.0.0.1")
+     * @Route(
+     *     "/",
+     *     name="mobile_homepage",
+     *     host="{subdomain}.example.com",
+     *     defaults={"subdomain"="m"},
+     *     requirements={"subdomain"="m|mobile"}
+     * )
      */
-    public function mobileHomepage(): Response
+    public function mobileHomepage(Request $request): Response
     {
-        // ...
+        $host = $request->getHost();
+
         return new Response(
-            "<html><body>Homepage for a specific domain</body></html>"
+            "<html><body>Homepage custom for a specific host: {$host}</body></html>"
         );
     }
 
     /**
      * @Route("/main", name="homepage")
      */
-    public function homepage(): Response
+    public function homepage(Request $request): Response
     {
-        // ...
+        $host = $request->getHost();
+
         return new Response(
-            "<html><body>homepage standard</body></html>"
+            "<html><body>Homepage standard for: {$host}</body></html>"
         );
     }
 }
