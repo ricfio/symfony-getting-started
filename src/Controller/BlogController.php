@@ -11,16 +11,16 @@ class BlogController extends AbstractController
     /**
      * This route has a greedy pattern and is defined first.
      * 
-     * @Route("/blog/{slug}", name="blog_show")
+     * @Route("/blog/{id}", name="blog_show")
      */
-    public function show(string $slug): Response
+    public function show(BlogPost $post): Response
     {
         // $slug will equal the dynamic part of the URL
         // e.g. at /blog/yay-routing, then $slug='yay-routing'
 
         // ...
         return new Response(
-            "<html><body>Blog slug({$slug})</body></html>"
+            "<html><body>Blog slug({$post->id})</body></html>"
         );
     }
 
